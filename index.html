@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>আমার ওয়েবসাইট</title>
+  <meta name="description" content="আমার নিজস্ব ওয়েবসাইটে স্বাগতম।">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: #f5f7ff;
+      line-height: 1.7;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      background: #10182d;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #26314d;
+    }
+    .logo { font-size: 23px; font-weight: bold; color: #65e6c2; }
+    nav a {
+      color: #e5e9f5;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+    nav a:hover { color: #65e6c2; }
+    .hero {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 70px 20px;
+      background: radial-gradient(ellipse at top, #1d3760, #0b1020 70%);
+    }
+    .tag {
+      color: #65e6c2;
+      border: 1px solid #397d78;
+      padding: 6px 15px;
+      border-radius: 30px;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+    h1 { font-size: clamp(34px, 7vw, 58px); line-height: 1.2; }
+    h1 span { color: #65e6c2; }
+    .hero p {
+      max-width: 600px;
+      color: #b9c4da;
+      margin: 22px 0 30px;
+    }
+    .btn {
+      display: inline-block;
+      background: #65e6c2;
+      color: #07131a;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+    section { padding: 75px 7%; }
+    .section-title { text-align: center; font-size: 30px; margin-bottom: 12px; }
+    .section-subtitle {
+      text-align: center;
+      color: #aab6cc;
+      margin-bottom: 38px;
+    }
+    .about {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      color: #c3cce0;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #141e34;
+      border: 1px solid #293754;
+      border-radius: 15px;
+      padding: 25px;
+      transition: transform .2s, border-color .2s;
+    }
+    .card:hover { transform: translateY(-5px); border-color: #65e6c2; }
+    .card .emoji { font-size: 30px; }
+    .card h3 { margin: 12px 0 8px; }
+    .card p { color: #aebbd2; font-size: 14px; }
+    .contact {
+      text-align: center;
+      background: #111a2e;
+    }
+    .contact p { color: #b9c4da; margin: 12px 0 25px; }
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #8e9bb4;
+      border-top: 1px solid #26314d;
+      font-size: 13px;
+    }
+    @media (max-width: 600px) {
+      header { padding: 15px 5%; flex-wrap: wrap; gap: 10px; }
+      nav { width: 100%; display: flex; justify-content: space-between; }
+      nav a { margin: 0; font-size: 12px; }
+      section { padding: 55px 6%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">আমার ওয়েবসাইট</div>
+    <nav>
+      <a href="#home">হোম</a>
+      <a href="#about">পরিচিতি</a>
+      <a href="#services">সেবা</a>
+      <a href="#contact">যোগাযোগ</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero" id="home">
+      <div class="tag">আমাদের ওয়েবসাইটে স্বাগতম</div>
+      <h1>নতুন কিছু শুরু হোক<br><span>এখান থেকেই</span></h1>
+      <p>
+        এটি আমার নিজস্ব ওয়েবসাইট। এখানে নতুন তথ্য, প্রয়োজনীয়
+        সেবা এবং দরকারি বিষয়গুলো এক জায়গায় তুলে ধরা হবে।
+      </p>
+      <a class="btn" href="#services">আরও জানুন</a>
+    </div>
+
+    <section id="about">
+      <h2 class="section-title">আমাদের সম্পর্কে</h2>
+      <p class="section-subtitle">আমাদের পরিচয় ও উদ্দেশ্য</p>
+      <div class="about">
+        <p>
+          আমরা একটি সুন্দর ও সহজ অনলাইন অভিজ্ঞতা তৈরি করতে চাই।
+          আমাদের লক্ষ্য হলো প্রয়োজনীয় তথ্য ও সুবিধা সবার কাছে
+          সহজভাবে পৌঁছে দেওয়া। সময়ের সঙ্গে এই ওয়েবসাইটে আরও
+          নতুন ফিচার যুক্ত করা হবে।
+        </p>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2 class="section-title">আমাদের সুবিধা</h2>
+      <p class="section-subtitle">এখানে কী কী পাওয়া যাবে</p>
+      <div class="cards">
+        <div class="card">
+          <div class="emoji">🌐</div>
+          <h3>অনলাইন সেবা</h3>
+          <p>প্রয়োজনীয় অনলাইন সুবিধা সহজভাবে ব্যবহার করার ব্যবস্থা।</p>
+        </div>
+        <div class="card">
+          <div class="emoji">📚</div>
+          <h3>তথ্য ও শিক্ষা</h3>
+          <p>দরকারি তথ্য, শেখার বিষয় এবং নতুন জ্ঞান এক জায়গায়।</p>
+        </div>
+        <div class="card">
+          <div class="emoji">⚡</div>
+          <h3>সহজ ব্যবহার</h3>
+          <p>মোবাইল ও কম্পিউটার—দুই জায়গাতেই সহজে ব্যবহার করা যাবে।</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2 class="section-title">যোগাযোগ করুন</h2>
+      <p>আপনার মতামত বা প্রশ্ন আমাদের জানাতে পারেন।</p>
+      <a class="btn" href="mailto:hello@example.com">ইমেইল করুন</a>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> আমার ওয়েবসাইট। সর্বস্বত্ব সংরক্ষিত।
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
