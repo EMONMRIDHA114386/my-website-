@@ -189,6 +189,21 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script src="menu.html"></script>
-<script src="script.js"></script></body>
+  
+<script>
+fetch("./menu.html")
+.then(response => response.text())
+.then(data => {
+  document.body.insertAdjacentHTML("beforeend", data);
 
+  document.getElementById("menuToggle")
+    .addEventListener("click", function() {
+      document.getElementById("sideMenu")
+        .classList.toggle("active");
+    });
+})
+.catch(error => console.log("Menu loading error:", error));
+</script>
+<script src="script.js"></script></body>
+</body>
+</html>
