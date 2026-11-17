@@ -102,3 +102,4 @@ colorButton.onclick = function() {
   themeButton.textContent = "🌙 Dark Mode";
   colorIndex = (colorIndex + 1) % colors.length;
 };
+<script src="menu.html"></script><body>
