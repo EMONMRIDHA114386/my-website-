@@ -1094,5 +1094,201 @@ showHistory();
 
 </script>
 
+<!-- SCIENTIFIC CALCULATOR START -->
+<style>
+#sciCalcBtn {
+  position:fixed; right:16px; bottom:22px; z-index:9998;
+  padding:13px 17px; border:0; border-radius:14px;
+  background:#6755e8; color:white; font-weight:bold;
+  box-shadow:0 4px 15px #0005;
+}
+#sciCalc {
+  display:none; position:fixed; inset:5% 4%; z-index:9999;
+  background:#171923; color:white; border:1px solid #45465a;
+  border-radius:18px; padding:15px; overflow:auto;
+  box-shadow:0 8px 35px #0009;
+  font-family:Arial,sans-serif;
+}
+#sciCalc * {box-sizing:border-box}
+#sciCalc .sci-head {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:14px; gap:8px;
+}
+#sciCalc .sci-head button {
+  background:#34364a; color:white; border:0;
+  padding:9px 13px; border-radius:9px;
+}
+#sciDisplay {
+  width:100%; height:65px; background:#25283a;
+  color:white; border:1px solid #45465a; border-radius:10px;
+  padding:12px; font-size:23px; text-align:right;
+  margin-bottom:12px;
+}
+#sciCalc .sci-grid {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:7px;
+}
+#sciCalc .sci-grid button {
+  min-width:0; height:48px; border:0; border-radius:9px;
+  background:#303449; color:white; font-size:15px;
+}
+#sciCalc .sci-grid button:active {background:#6254cf}
+#sciCalc .sci-grid .sci-special {background:#49416f}
+#sciCalc .sci-grid .sci-equal {
+  background:#6755e8; grid-column:span 2;
+}
+#sciCalc .sci-grid .sci-clear {background:#a63e50}
+#sciCalc .sci-mode {
+  display:flex; gap:8px; margin-bottom:10px;
+}
+#sciCalc .sci-mode button {
+  flex:1; padding:9px; border:0; border-radius:8px;
+  background:#303449; color:white;
+}
+#sciCalc .sci-mode button.active {background:#6755e8}
+#sciCalc .sci-note {
+  color:#aaa; font-size:12px; margin-top:12px;
+}
+@media(max-width:380px) {
+  #sciCalc .sci-grid {gap:5px}
+  #sciCalc .sci-grid button {height:43px;font-size:13px}
+}
+</style>
+
+<button id="sciCalcBtn" type="button"
+ onclick="document.getElementById('sciCalc').style.display='block'">
+ Scientific Calculator
+</button>
+
+<div id="sciCalc">
+  <div class="sci-head">
+    <strong>Scientific Calculator</strong>
+    <button type="button" onclick="document.getElementById('sciCalc').style.display='none'">✕ বন্ধ</button>
+  </div>
+
+  <input id="sciDisplay" type="text" readonly placeholder="0">
+
+  <div class="sci-mode">
+    <button id="sciDeg" class="active" type="button" onclick="sciSetMode('DEG')">DEG</button>
+    <button id="sciRad" type="button" onclick="sciSetMode('RAD')">RAD</button>
+  </div>
+
+  <div class="sci-grid">
+    <button class="sci-special" onclick="sciAdd('sin(')">sin</button>
+    <button class="sci-special" onclick="sciAdd('cos(')">cos</button>
+    <button class="sci-special" onclick="sciAdd('tan(')">tan</button>
+    <button class="sci-special" onclick="sciAdd('asin(')">sin⁻¹</button>
+    <button class="sci-special" onclick="sciAdd('acos(')">cos⁻¹</button>
+
+    <button class="sci-special" onclick="sciAdd('atan(')">tan⁻¹</button>
+    <button class="sci-special" onclick="sciAdd('log10(')">log</button>
+    <button class="sci-special" onclick="sciAdd('log(')">ln</button>
+    <button class="sci-special" onclick="sciAdd('sqrt(')">√</button>
+    <button class="sci-special" onclick="sciAdd('^2')">x²</button>
+
+    <button class="sci-special" onclick="sciAdd('^')">xʸ</button>
+    <button class="sci-special" onclick="sciAdd('pi')">π</button>
+    <button class="sci-special" onclick="sciAdd('e')">e</button>
+    <button class="sci-special" onclick="sciAdd('(')">(</button>
+    <button class="sci-special" onclick="sciAdd(')')">)</button>
+
+    <button onclick="sciAdd('7')">7</button>
+    <button onclick="sciAdd('8')">8</button>
+    <button onclick="sciAdd('9')">9</button>
+    <button onclick="sciAdd('/')">÷</button>
+    <button class="sci-clear" onclick="sciClear()">AC</button>
+
+    <button onclick="sciAdd('4')">4</button>
+    <button onclick="sciAdd('5')">5</button>
+    <button onclick="sciAdd('6')">6</button>
+    <button onclick="sciAdd('*')">×</button>
+    <button onclick="sciBack()">DEL</button>
+
+    <button onclick="sciAdd('1')">1</button>
+    <button onclick="sciAdd('2')">2</button>
+    <button onclick="sciAdd('3')">3</button>
+    <button onclick="sciAdd('-')">−</button>
+    <button onclick="sciAdd('%')">%</button>
+
+    <button onclick="sciAdd('0')">0</button>
+    <button onclick="sciAdd('.')">.</button>
+    <button onclick="sciAdd('Ans')">Ans</button>
+    <button onclick="sciAdd('+')">+</button>
+    <button class="sci-equal" onclick="sciCalculate()">= হিসাব</button>
+  </div>
+
+  <div class="sci-note">
+    উদাহরণ: sin(30), sqrt(25), log10(100), 2^5
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.8.1/math.min.js"></script>
+<script>
+(function(){
+  let sciMode = 'DEG';
+  let sciAnswer = 0;
+  const display = document.getElementById('sciDisplay');
+
+  window.sciAdd = function(value){
+    display.value += value;
+  };
+
+  window.sciClear = function(){
+    display.value = '';
+  };
+
+  window.sciBack = function(){
+    display.value = display.value.slice(0,-1);
+  };
+
+  window.sciSetMode = function(mode){
+    sciMode = mode;
+    document.getElementById('sciDeg').classList.toggle('active',mode==='DEG');
+    document.getElementById('sciRad').classList.toggle('active',mode==='RAD');
+  };
+
+  window.sciCalculate = function(){
+    if(typeof math === 'undefined'){
+      display.value = 'ইন্টারনেট প্রয়োজন';
+      return;
+    }
+
+    try{
+      let expression = display.value.trim();
+      if(!expression) return;
+
+      expression = expression.replace(/\bAns\b/g,String(sciAnswer));
+
+      const compiled = math.parse(expression);
+      const scope = {
+        sin: x => Math.sin(sciMode==='DEG' ? x*Math.PI/180 : x),
+        cos: x => Math.cos(sciMode==='DEG' ? x*Math.PI/180 : x),
+        tan: x => Math.tan(sciMode==='DEG' ? x*Math.PI/180 : x),
+        asin: x => sciMode==='DEG' ? Math.asin(x)*180/Math.PI : Math.asin(x),
+        acos: x => sciMode==='DEG' ? Math.acos(x)*180/Math.PI : Math.acos(x),
+        atan: x => sciMode==='DEG' ? Math.atan(x)*180/Math.PI : Math.atan(x),
+        log: x => Math.log(x),
+        log10: x => Math.log10(x),
+        sqrt: x => Math.sqrt(x),
+        pi: Math.PI,
+        e: Math.E
+      };
+
+      const result = compiled.evaluate(scope);
+
+      if(typeof result !== 'number' || !Number.isFinite(result)){
+        throw new Error('Invalid');
+      }
+
+      sciAnswer = result;
+      display.value = String(Number(result.toPrecision(12)));
+
+    }catch(error){
+      display.value = 'ভুল হিসাব';
+    }
+  };
+})();
+</script>
+<!-- SCIENTIFIC CALCULATOR END -->
+
 </body>
 </html>
