@@ -1,6 +1,4 @@
-
-{
-  "name": "My New App",
+name": "My New App",
   "short_name": "MyApp",
   "start_url": "./",
   "display": "standalone",
